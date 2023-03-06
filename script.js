@@ -60,6 +60,25 @@ let degreeText = "°C";
 let speedText = "km/h";
 let unitDaily = "metric";
 
+function getDayWeek(dayNumber) {
+    switch(dayNumber) {
+        case 0:
+            return 'Sunday';
+        case 1:
+            return 'Monday';
+        case 2:
+            return 'Tuesday';
+        case 3:
+            return 'Wednesday';
+        case 4:
+            return 'Thursday';
+        case 5:
+            return 'Friday';    
+        case 6:
+            return 'Saturday';
+    }
+}
+
 function showInfo(object){
 
     let logos = {
@@ -216,8 +235,9 @@ function showInfo(object){
                 dailyDiv.id = "daily";
                 let timeFuture = new Intl.DateTimeFormat('en-CA', options).format(new Date(response.daily[i].dt*1000));
                 let daySeparator = timeFuture.split(',')[0].split('-');
-                let day = new Date(daySeparator[0], parseInt(daySeparator[1])-1, daySeparator[2]).toLocaleString('en-US', {weekday: 'long'});
-                dailyDiv.textContent = day;
+                // let day = new Date(daySeparator[0], parseInt(daySeparator[1])-1, daySeparator[2]).toLocaleString('en-US', {weekday: 'long'});
+                let dayDate = new Date(daySeparator);
+                dailyDiv.textContent = getDayWeek(dayDate.getDay());
                 bottomSide.appendChild(dailyDiv);
 
                 const maxTemp = document.createElement('div');
